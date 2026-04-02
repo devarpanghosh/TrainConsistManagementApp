@@ -1,38 +1,36 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * UC2: Dynamic Insertion and Removal of Passenger Bogies
- * Goal: Use ArrayList methods to manage the train consist.
+ * UC3: Ensure Unique Bogie IDs using HashSet
+ * Goal: Prevent duplicate bogie IDs from being added to the train.
  */
 public class TrainConsistManagement {
 
     public static void main(String[] args) {
-        System.out.println("=== Train Consist Management App (UC2) ===");
+        System.out.println("=== Train Consist Management App (UC3) ===");
 
-        // 1. Create an ArrayList<String> for passenger bogies
-        List<String> passengerBogies = new ArrayList<>();
+        // 1. Create a HashSet<String> for bogie IDs
+        // We use the Set interface to enforce uniqueness.
+        Set<String> bogieIds = new HashSet<>();
 
-        // 2. Add bogies: Sleeper, AC Chair, First Class
-        // The add() method demonstrates Insertion Order Preservation
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // 2. System inserts bogie IDs into HashSet
+        bogieIds.add("B-101");
+        bogieIds.add("B-102");
+        bogieIds.add("B-103");
 
-        // 3. Print the list after insertion
-        System.out.println("Current Bogies: " + passengerBogies);
+        // 3. Attempt to add a duplicate ID
+        // The add() method returns false if the element already exists.
+        boolean isAdded = bogieIds.add("B-101");
 
-        // 4. Remove one bogie (e.g., AC Chair)
-        // This demonstrates the dynamic resizing of the ArrayList
-        passengerBogies.remove("AC Chair");
-        System.out.println("Removed: AC Chair");
+        if (!isAdded) {
+            System.out.println("Duplicate ID 'B-101' ignored.");
+        }
 
-        // 5. Use contains() to check if Sleeper exists
-        boolean hasSleeper = passengerBogies.contains("Sleeper");
-        System.out.println("Is 'Sleeper' in the consist? " + hasSleeper);
+        // 4. Unique IDs are displayed
+        // Note: The order of output may differ from insertion order.
+        System.out.println("Unique Bogie IDs in System: " + bogieIds);
 
-        // 6. Print final list state
-        System.out.println("Final Bogie List: " + passengerBogies);
-        System.out.println("Final Count: " + passengerBogies.size());
+        System.out.println("Total Unique Bogies: " + bogieIds.size());
     }
 }
