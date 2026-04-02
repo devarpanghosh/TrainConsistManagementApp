@@ -1,36 +1,41 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
 
 /**
- * UC3: Ensure Unique Bogie IDs using HashSet
- * Goal: Prevent duplicate bogie IDs from being added to the train.
+ * UC4: Managing Train Consist using LinkedList
+ * Goal: Model real-world chaining behavior for efficient insertions and deletions.
  */
 public class TrainConsistManagement {
 
     public static void main(String[] args) {
-        System.out.println("=== Train Consist Management App (UC3) ===");
+        System.out.println("=== Train Consist Management App (UC4) ===");
 
-        // 1. Create a HashSet<String> for bogie IDs
-        // We use the Set interface to enforce uniqueness.
-        Set<String> bogieIds = new HashSet<>();
+        // 1. Create a LinkedList<String> for the consist
+        // We use the specific LinkedList class to access addFirst/addLast methods
+        LinkedList<String> trainConsist = new LinkedList<>();
 
-        // 2. System inserts bogie IDs into HashSet
-        bogieIds.add("B-101");
-        bogieIds.add("B-102");
-        bogieIds.add("B-103");
+        // 2. Add bogies: Engine, Sleeper, AC, Cargo, Guard
+        // Standard add() attaches to the end of the list
+        trainConsist.add("Engine");
+        trainConsist.add("Sleeper");
+        trainConsist.add("AC");
+        trainConsist.add("Cargo");
+        trainConsist.add("Guard");
 
-        // 3. Attempt to add a duplicate ID
-        // The add() method returns false if the element already exists.
-        boolean isAdded = bogieIds.add("B-101");
+        System.out.println("Initial Consist: " + trainConsist);
 
-        if (!isAdded) {
-            System.out.println("Duplicate ID 'B-101' ignored.");
-        }
+        // 3. Insert a Pantry Car at position 2 (Index starts at 0)
+        // This is very efficient in a LinkedList compared to an ArrayList
+        trainConsist.add(2, "Pantry Car");
+        System.out.println("After adding Pantry Car at index 2: " + trainConsist);
 
-        // 4. Unique IDs are displayed
-        // Note: The order of output may differ from insertion order.
-        System.out.println("Unique Bogie IDs in System: " + bogieIds);
+        // 4. Remove the first and last bogie
+        // This simulates detaching the Engine and the Guard van
+        trainConsist.removeFirst();
+        trainConsist.removeLast();
 
-        System.out.println("Total Unique Bogies: " + bogieIds.size());
+        System.out.println("After removing First and Last bogies: " + trainConsist);
+
+        // 5. Display the final ordered train consist
+        System.out.println("Final Consist Sequence: " + String.join(" <-> ", trainConsist));
     }
 }
