@@ -1,41 +1,40 @@
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
- * UC4: Managing Train Consist using LinkedList
- * Goal: Model real-world chaining behavior for efficient insertions and deletions.
+ * UC5: Maintain Insertion Order while Enforcing Uniqueness
+ * Goal: Use LinkedHashSet to ensure no duplicate bogies exist while
+ * preserving the physical attachment sequence.
  */
 public class TrainConsistManagement {
 
     public static void main(String[] args) {
-        System.out.println("=== Train Consist Management App (UC4) ===");
+        System.out.println("=== Train Consist Management App (UC5) ===");
 
-        // 1. Create a LinkedList<String> for the consist
-        // We use the specific LinkedList class to access addFirst/addLast methods
-        LinkedList<String> trainConsist = new LinkedList<>();
+        // 1. Create a LinkedHashSet<String> to represent the train formation
+        Set<String> trainFormation = new LinkedHashSet<>();
 
-        // 2. Add bogies: Engine, Sleeper, AC, Cargo, Guard
-        // Standard add() attaches to the end of the list
-        trainConsist.add("Engine");
-        trainConsist.add("Sleeper");
-        trainConsist.add("AC");
-        trainConsist.add("Cargo");
-        trainConsist.add("Guard");
+        // 2. Attach bogies: Engine, Sleeper, Cargo, Guard
+        trainFormation.add("Engine");
+        trainFormation.add("Sleeper");
+        trainFormation.add("Cargo");
+        trainFormation.add("Guard");
 
-        System.out.println("Initial Consist: " + trainConsist);
+        System.out.println("Initial Formation: " + trainFormation);
 
-        // 3. Insert a Pantry Car at position 2 (Index starts at 0)
-        // This is very efficient in a LinkedList compared to an ArrayList
-        trainConsist.add(2, "Pantry Car");
-        System.out.println("After adding Pantry Car at index 2: " + trainConsist);
+        // 3. Attempt to attach a duplicate bogie (e.g., Sleeper again)
+        // LinkedHashSet will automatically ignore this.
+        boolean isAdded = trainFormation.add("Sleeper");
 
-        // 4. Remove the first and last bogie
-        // This simulates detaching the Engine and the Guard van
-        trainConsist.removeFirst();
-        trainConsist.removeLast();
+        if (!isAdded) {
+            System.out.println("\nAlert: Attempted to add duplicate 'Sleeper'. Action ignored.");
+        }
 
-        System.out.println("After removing First and Last bogies: " + trainConsist);
+        // 4. Display the final formation order
+        // 5. Ensure that duplicates do not appear in the output
+        System.out.println("\nFinal Formation (Order Preserved):");
+        System.out.println(String.join(" -> ", trainFormation));
 
-        // 5. Display the final ordered train consist
-        System.out.println("Final Consist Sequence: " + String.join(" <-> ", trainConsist));
+        System.out.println("\nTotal Unique Bogies: " + trainFormation.size());
     }
 }
