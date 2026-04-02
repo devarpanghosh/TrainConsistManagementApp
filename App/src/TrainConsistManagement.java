@@ -2,28 +2,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * UC1: Initialize the Train Consist Management App
- * Goal: Initialize the app and display the initial state of the train.
+ * UC2: Dynamic Insertion and Removal of Passenger Bogies
+ * Goal: Use ArrayList methods to manage the train consist.
  */
 public class TrainConsistManagement {
 
     public static void main(String[] args) {
-        // 1. Print a welcome message
-        System.out.println("=== Train Consist Management App ===");
+        System.out.println("=== Train Consist Management App (UC2) ===");
 
-        /* * 2. Initialize an empty List using ArrayList.
-         * We use the List interface for abstraction and ArrayList
-         * for dynamic resizing capabilities.
-         */
-        List<String> trainBogies = new ArrayList<>();
+        // 1. Create an ArrayList<String> for passenger bogies
+        List<String> passengerBogies = new ArrayList<>();
 
-        /* * 3. Display the initial bogie count.
-         * Since we just initialized it, the size() should be 0.
-         */
-        int initialCount = trainBogies.size();
-        System.out.println("Initial bogie count: " + initialCount);
+        // 2. Add bogies: Sleeper, AC Chair, First Class
+        // The add() method demonstrates Insertion Order Preservation
+        passengerBogies.add("Sleeper");
+        passengerBogies.add("AC Chair");
+        passengerBogies.add("First Class");
 
-        // 4. Program continues...
-        System.out.println("Application initialized successfully. Ready for further operations.");
+        // 3. Print the list after insertion
+        System.out.println("Current Bogies: " + passengerBogies);
+
+        // 4. Remove one bogie (e.g., AC Chair)
+        // This demonstrates the dynamic resizing of the ArrayList
+        passengerBogies.remove("AC Chair");
+        System.out.println("Removed: AC Chair");
+
+        // 5. Use contains() to check if Sleeper exists
+        boolean hasSleeper = passengerBogies.contains("Sleeper");
+        System.out.println("Is 'Sleeper' in the consist? " + hasSleeper);
+
+        // 6. Print final list state
+        System.out.println("Final Bogie List: " + passengerBogies);
+        System.out.println("Final Count: " + passengerBogies.size());
     }
 }
